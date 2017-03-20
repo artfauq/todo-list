@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Todo List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--End Stylesheets-->
+</head>
+
+<body>
+    <div class="container" id="todolist">
+        <div class="row">
+            <h1>ToDo List</h1>
+
+            <div class="tasks">
+                <% todolist.forEach(function(todo, index) { %>
+                    <div><a href="/todo/delete/<%=index%>">X</a>
+                        <%= todo %>
+                    </div>
+                    <% 
+                    }) 
+                    %>
+            </div>
+
+            <form method="POST" id="taskForm">
+                <input type="text" name="newTask" id="newTaskInput" placeholder="New task..." autofocus>
+                <button type="submit" class="btn btn-default">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <!--Scripts-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <!--End Scripts-->
+</body>
+
+</html>
