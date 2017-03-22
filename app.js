@@ -3,7 +3,12 @@ var http = require('http'),
     express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
+    session = require('express-session')({
+        secret: "secretKey",
+        resave: false,
+        saveUninitialized: true
+    }),
+    sharedSession = require('express-socket.io-session'),
     hbs = require('hbs');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -15,33 +20,15 @@ var io = require('socket.io').listen(server);
 
 app.set('view engine', 'html')
     .engine('html', hbs.__express)
+    .use(session)
     .use(express.static(__dirname + '/public'))
     .use('/bower_components', express.static(__dirname + '/bower_components/'))
-    .use(session({
-        secret: "todo-secret",
-        resave: false,
-        saveUninitialized: true
-    }))
     .get('/todolist', function(req, res) {
         if (typeof req.session.todolist == 'undefined') {
             req.session.todolist = [];
         }
 
-        res.render('index', { tasks: req.session.todolist });
-    })
-    .post('/todolist/add', urlencodedParser, function(req, res) {
-        var newTask = req.body.newTask;
-
-        if (newTask !== null) {
-            req.session.todolist.push(newTask);
-        }
-
-        res.redirect('/todolist');
-    })
-    .get('/todolist/delete/:id', function(req, res) {
-        req.session.todolist.splice(req.params.id, 1);
-
-        res.redirect('/todolist');
+        res.render('index');
     })
     .use('/', function(req, res, next) {
         res.redirect('/todolist');
@@ -49,11 +36,40 @@ app.set('view engine', 'html')
         next();
     });
 
+io.use(sharedSession(session, {
+    autoSave: true
+}));
+
 io.on('connection', function(socket) {
-    console.log('Listening on : 8080');
+    console.log('Socket.IO listening on port 8080 !');
+
+    socket.emit('initialize', socket.handshake.session.todolist);
+
+    socket.on('newTask', function(newTask) {
+        socket.handshake.session.todolist.push(newTask);
+        socket.handshake.session.save();
+
+        socket.emit('addTask', {
+            index: socket.handshake.session.todolist.length,
+            content: newTask
+        });
+
+        socket.broadcast.emit('addTask', {
+            index: socket.handshake.session.todolist.length,
+            content: newTask
+        });
+    });
+
+    socket.on('removeTask', function(index) {
+        socket.handshake.session.todolist.splice(index, 1);
+        socket.handshake.session.save();
+
+        socket.emit('removeTask', index);
+        socket.broadcast.emit('removeTask', index);
+    });
 });
 
 // Run the server on port 8080
 server.listen(8080, function() {
-    console.log('Application listening on port 8080 !');
+    console.log('Express listening on port 8080 !');
 });
