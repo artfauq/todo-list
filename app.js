@@ -50,12 +50,12 @@ io.on('connection', function(socket) {
         socket.handshake.session.save();
 
         socket.emit('addTask', {
-            index: socket.handshake.session.todolist.length,
+            index: socket.handshake.session.todolist.indexOf(newTask),
             content: newTask
         });
 
         socket.broadcast.emit('addTask', {
-            index: socket.handshake.session.todolist.length,
+            index: socket.handshake.session.todolist.indexOf(newTask),
             content: newTask
         });
     });

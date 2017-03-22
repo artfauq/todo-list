@@ -14,7 +14,9 @@ $(document).ready(function() {
     });
 
     socket.on('removeTask', function(index) {
-        $('#task-' + index).remove();
+        $('#task-' + index).animate({ opacity: 0 }, { duration: 500 }).slideUp(400, function() {
+            $(this).remove();
+        });
     });
 
     $('#taskForm').submit(function(event) {
@@ -25,17 +27,18 @@ $(document).ready(function() {
         } else {
             socket.emit('newTask', input.val());
             input.val("");
+            input.blur();
             event.preventDefault();
         }
     });
-
-
 });
 
 function appendTask(content, index) {
     var newTask = '<div class="task" id="task-' + index + '"><p class="v-align"><a href="#" id="link-task-' + index + '" class="task-delete" onclick="removeTask(this)"><i class="fa fa-minus-circle"></i></a><span>' + content + '</span></p></div>';
 
-    $('#tasks').append(newTask);
+    // $('#tasks').append(newTask).children(':last').css('opacity', 0).slideDown('slow').animate({ opacity: 1 }, { duration: 'slow' });
+
+    $('#tasks').append(newTask).children(':last').slideDown(500).css('opacity', 0).animate({ opacity: 1 }, { duration: 500 });
 }
 
 function removeTask(element) {
@@ -43,6 +46,4 @@ function removeTask(element) {
     var index = id.substr(id.lastIndexOf('-') + 1);
 
     socket.emit('removeTask', index);
-
-    return false;
 }
