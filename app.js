@@ -11,7 +11,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // Variable initialization
 var app = express();
 var server = http.createServer(app);
-// var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server);
 
 app.set('view engine', 'html')
     .engine('html', hbs.__express)
@@ -49,11 +49,11 @@ app.set('view engine', 'html')
         next();
     });
 
-// io.on('connection', function(socket) {
-//     console.log('Listening on : 8080');
-// });
+io.on('connection', function(socket) {
+    console.log('Listening on : 8080');
+});
 
 // Run the server on port 8080
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log('Application listening on port 8080 !');
 });
