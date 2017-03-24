@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--Stylesheets-->
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="/css/style.css">
     <!--End Stylesheets-->
 
     <!--Scripts-->
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <!--End Scripts-->
@@ -28,14 +28,7 @@
                 <div class="stitched">
                     <h1>ToDo List</h1>
                 </div>
-
-                <div id="tasks">
-                    <!--{{#each tasks}}
-                    <div class="task">
-                        <p class="v-align"><a href="todolist/delete/{{@index}}" class="task-delete"><i class="fa fa-minus-circle"></i></a><span>{{this}}</span></p>
-                    </div>
-                    {{/each}}-->
-                </div>
+                <div id="tasks"></div>
             </div>
         </div>
 
