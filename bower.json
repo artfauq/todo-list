@@ -1,21 +1,21 @@
 {
-  "name": "todolist",
-  "description": "ToDo list made with Node.js, Express.js and Socket.IO.",
-  "main": "app.js",
-  "authors": [
-    "Arthur Fauquenot <arthurfauquenot@yahoo.com> (htt://arthurfauquenot.com/)"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "font-awesome": "^4.7.0"
-  }
+    "name": "todolist",
+    "description": "ToDo list made with Node.js, Express.js and Socket.IO.",
+    "main": "app.js",
+    "authors": [
+        "Arthur Fauquenot <arthurfauquenot@yahoo.com> (htt://arthurfauquenot.com/)"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/arthurfauq/todo-list",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "font-awesome": "^4.7.0"
+    }
 }

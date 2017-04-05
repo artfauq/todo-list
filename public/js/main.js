@@ -36,8 +36,6 @@ $(document).ready(function() {
 function appendTask(content, index) {
     var newTask = '<div class="task" id="task-' + index + '"><p class="v-align"><a href="#" id="link-task-' + index + '" class="task-delete" onclick="removeTask(this)"><i class="fa fa-minus-circle"></i></a><span>' + content + '</span></p></div>';
 
-    // $('#tasks').append(newTask).children(':last').css('opacity', 0).slideDown('slow').animate({ opacity: 1 }, { duration: 'slow' });
-
     $('#tasks').append(newTask).children(':last').slideDown(500).css('opacity', 0).animate({ opacity: 1 }, { duration: 500 });
 }
 
